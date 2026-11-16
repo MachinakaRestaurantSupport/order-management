@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "order-management"
+version = "0.1.0"
+description = "MachinakaRestaurantSupportTools 注文管理（order-management）サービス"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "pydantic>=2.0.0",
+    "uvicorn>=0.30.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
