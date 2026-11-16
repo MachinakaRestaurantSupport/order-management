@@ -41,9 +41,7 @@ def create_app() -> FastAPI:
         )
 
     @application.exception_handler(OrderAlreadyPaidError)
-    async def handle_already_paid(
-        _request: Request, exc: OrderAlreadyPaidError
-    ) -> JSONResponse:
+    async def handle_already_paid(_request: Request, exc: OrderAlreadyPaidError) -> JSONResponse:
         return JSONResponse(
             status_code=status.HTTP_409_CONFLICT,
             content={"detail": str(exc)},
