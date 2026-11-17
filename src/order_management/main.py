@@ -17,12 +17,14 @@ from order_management.store import (
     OrderNotFoundError,
     OrderStore,
 )
+from order_management.ui import create_ui_router
 
 
 def create_app() -> FastAPI:
     """Create and configure a FastAPI application instance."""
     application = FastAPI(title="order-management", version="0.1.0")
     store = OrderStore()
+    application.include_router(create_ui_router(store))
 
     @application.exception_handler(OrderNotFoundError)
     async def handle_not_found(_request: Request, exc: OrderNotFoundError) -> JSONResponse:

@@ -168,3 +168,12 @@ def test_table_bill_and_prevent_duplicate_payment(client: TestClient) -> None:
     # Missing order mark-paid returns 404
     missing_pay = client.post("/orders/ord_missing/mark-paid")
     assert missing_pay.status_code == 404
+
+
+def test_order_ui_screens(client: TestClient) -> None:
+    """UI screens render kanban, detail, and bills views."""
+    client.post("/orders", json=_sample_dine_in_payload("T-10"))
+    for path in ("/ui/orders/kanban", "/ui/orders/detail", "/ui/orders/bills"):
+        res = client.get(path)
+        assert res.status_code == 200
+        assert "注文管理" in res.text
